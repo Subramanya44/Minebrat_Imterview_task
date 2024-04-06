@@ -1,0 +1,52 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <label>First Name:</label>
+    <input type="text" formControlName="firstName" />
+
+    <label>Last Name:</label>
+    <input type="text" formControlName="lastName" />
+
+    <label>Age:</label>
+    <input type="number" formControlName="age" />
+
+    <label>Profile:</label>
+    <input type="file" (change)="onProfileChange($event)" />
+
+    <label>Experience Documents:</label>
+    <input type="file" multiple (change)="onExperienceChange($event)" />
+
+    <div formArrayName="educationalDetails">
+        <div *ngFor="let edu of educationalDetails.controls; let i = index" [formGroupName]="i">
+            <label>Educational Institute:</label>
+            <input type="text" formControlName="institute" />
+
+            <label>Qualification:</label>
+            <input type="text" formControlName="qualification" />
+
+            <button type="button" (click)="removeEducation(i)">Remove</button>
+        </div>
+    </div>
+
+    <button type="button" (click)="addEducation()">Add Educational Detail</button>
+
+    <label>Address Line 1:</label>
+    <input type="text" formControlName="addressLine1" />
+
+    <label>Address Line 2:</label>
+    <input type="text" formControlName="addressLine2" />
+
+    <label>State:</label>
+    <select formControlName="state" (change)="onStateChange($event.target.value)">
+        <option *ngFor="let state of states" [value]="state.stateId">{{ state.stateName }}</option>
+    </select>
+
+
+    <label>City:</label>
+    <select formControlName="city">
+        <option *ngFor="let city of cities" [value]="city.cityId">{{ city.cityName }}</option>
+    </select>
+
+    <label>Country:</label>
+    <input type="text" formControlName="country" value="India" />
+
+    <button type="submit">Submit</button>
+</form>
